@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 type CounterType = {
     counter: number
@@ -6,46 +6,25 @@ type CounterType = {
 }
 const Counter = (props: CounterType) => {
 
-    const setToLocalStorage = () => {
-        localStorage.setItem('counterValue', JSON.stringify(props.counter));
-        sessionStorage.setItem('counterValue', JSON.stringify(props.counter));
-        localStorage.setItem('counterValue+1', JSON.stringify(props.counter+1));
-
-        //`${props.counter}`
-        //-or
-        //props.counter.toString()
-        //-but prefer ...
-        //JSON.stringify(props.counter)
-        //overall must be a string
-    }
-    const getFromLocalStorage = () => {
+    useEffect(() => {
         let valAsString = localStorage.getItem('counterValue');
-        if(valAsString){
+        if (valAsString) {
             let newValue = JSON.parse(valAsString);
-            props.setCounter(newValue)
+            props.setCounter(newValue);
         }
+    }, [])
 
-    }
-    const clearLocalStorage = () => {
-        localStorage.clear();
-        props.setCounter(0);
-    }
-    const removeLocalStorage = () => {
-        localStorage.removeItem('counterValue+1');
-    }
+    useEffect(() => {
+        localStorage.setItem('counterValue', JSON.stringify(props.counter));
+    }, [props.counter])
 
     return (
         <div>
             {props.counter}<br/>
             <button onClick={() => {
                 props.setCounter(props.counter + 1);
-
             }}>add
             </button>
-            <button onClick={setToLocalStorage}>setToLocalStorage</button>
-            <button onClick={getFromLocalStorage}>getFromLocalStorage</button>
-            <button onClick={clearLocalStorage}>clearLocalStorage</button>
-            <button onClick={removeLocalStorage}>removeLocalStorage</button>
         </div>
     );
 };
