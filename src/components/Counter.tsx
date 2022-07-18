@@ -8,6 +8,7 @@ const Counter = (props: CounterType) => {
 
     const setToLocalStorage = () => {
         localStorage.setItem('counterValue', JSON.stringify(props.counter));
+        sessionStorage.setItem('counterValue', JSON.stringify(props.counter));
         localStorage.setItem('counterValue+1', JSON.stringify(props.counter+1));
 
         //`${props.counter}`
