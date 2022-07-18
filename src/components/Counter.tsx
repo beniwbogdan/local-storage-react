@@ -8,6 +8,7 @@ const Counter = (props: CounterType) => {
 
     const setToLocalStorage = () => {
         localStorage.setItem('counterValue', JSON.stringify(props.counter));
+        localStorage.setItem('counterValue+1', JSON.stringify(props.counter+1));
 
         //`${props.counter}`
         //-or
@@ -26,6 +27,10 @@ const Counter = (props: CounterType) => {
     }
     const clearLocalStorage = () => {
         localStorage.clear();
+        props.setCounter(0);
+    }
+    const removeLocalStorage = () => {
+        localStorage.removeItem('counterValue+1');
     }
 
     return (
@@ -39,6 +44,7 @@ const Counter = (props: CounterType) => {
             <button onClick={setToLocalStorage}>setToLocalStorage</button>
             <button onClick={getFromLocalStorage}>getFromLocalStorage</button>
             <button onClick={clearLocalStorage}>clearLocalStorage</button>
+            <button onClick={removeLocalStorage}>removeLocalStorage</button>
         </div>
     );
 };
