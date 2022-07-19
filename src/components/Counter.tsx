@@ -4,25 +4,25 @@ type CounterType = {
     counter: number
     setCounter: (counter: number) => void
 }
-const Counter = (props: CounterType) => {
+const Counter = ({setCounter, counter}: CounterType) => {
 
     useEffect(() => {
         let valAsString = localStorage.getItem('counterValue');
         if (valAsString) {
-            let newValue = JSON.parse(valAsString);
-            props.setCounter(newValue);
+            let newValue = JSON.parse(valAsString)
+            setCounter(newValue);
         }
     }, [])
 
     useEffect(() => {
-        localStorage.setItem('counterValue', JSON.stringify(props.counter));
-    }, [props.counter])
+        localStorage.setItem('counterValue', JSON.stringify(counter));
+    }, [counter])
 
     return (
         <div>
-            {props.counter}<br/>
+            {counter}<br/>
             <button onClick={() => {
-                props.setCounter(props.counter + 1);
+                setCounter(counter + 1);
             }}>add
             </button>
         </div>
